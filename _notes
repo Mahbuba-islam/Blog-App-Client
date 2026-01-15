@@ -1,0 +1,27 @@
+
+// layouts
+// kono akta set of routes ke judi nidisto akta layout er under a ante chai 
+// tahole ami sai set of routes er root er moddhe layout.tsx name akta file banabo
+
+//  hydration error 
+// internationalizion
+
+// when we use react hook . we must be write "use client" in up of our component .
+
+// use client -- meaning
+// use cient meaning is it will be run in user browser. it will not render in server. when server look there is use client then server 
+// won't render. 
+
+// in next js if use react hook(use state, use effect, use realated any hook) must be our component will be client component.
+// because when we use useEffect or useState that means it will do something in user browser. 
+// what will useEffect -- it run sideEffect in user browser.
+
+// whwt sequence next js render file
+// when next js see loading.tsx . if see there is loading.tsx then next js wrap the page.tsx with ract suspense . in react suspense 
+// we need to set fallback . in suspense it give loading component.behind the scene next js automatically done this.
+// if next js see there is error.tsx then it will wrap page.tsx with error broundary. then it will show fallback component.
+// after complete whole things then it wrap with layout. it's out actual component higherer key.
+
+
+
+
