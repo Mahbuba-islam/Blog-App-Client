@@ -23,5 +23,12 @@
 // after complete whole things then it wrap with layout. it's out actual component higherer key.
 
 
+/*
+
+no dynamic no {cache: no store} : SSG ---> static page
+{cache:no store} thakle dynamic page -- SSR
+next{revalidate:10} : ISR Mix between static and dynamic
+
+*/ 
 
 

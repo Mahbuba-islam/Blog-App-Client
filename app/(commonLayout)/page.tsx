@@ -1,15 +1,19 @@
-import { Button } from "@/src/components/ui/button";
-import { userService } from "@/src/services/user.service";
+import { BlogCard } from "@/src/components/modules/homepage/BlogCard";
 
+import { blogService } from "@/src/services/blog.service";
+import { BlogPost } from "@/src/types";
 
 export default async function Home() {
 
-  const {data, error} =  await userService.getSession()
-  console.log('data::',data);
+  const {data} = await blogService.getBlogPosts()
+
+  console.log(data);
   
   return (
-    <div>
-      <Button>click here</Button>
+    <div className="grid grid-cols-3 max-w-6xl gap-4 mx-auto space-y-3 my-20">
+      {
+        data?.data?.map((post: BlogPost) => <BlogCard key={post.id} post={post}></BlogCard>)
+      }
     </div>
   );
 }

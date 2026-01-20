@@ -15,7 +15,7 @@ export const userService = {
 
  const session = await res.json()
 
- console.log('session-data',session);
+//  console.log('session-data',session);
 
  if(!session===null){
     return {data:null, error:{message:"session is missing"}}
