@@ -12,8 +12,9 @@ interface BlogCardProps {
 
 export function BlogCard({ post, className }: BlogCardProps) {
   return (
+    <div>
     <Link
-      href={`/blog/${post.id}`}
+      href={`/blogs/${post.id}`}
       className={cn(
         "group block rounded-xl border bg-card shadow-sm overflow-hidden transition-all hover:shadow-lg hover:-translate-y-1",
         className
@@ -21,13 +22,15 @@ export function BlogCard({ post, className }: BlogCardProps) {
     >
       {/* Thumbnail */}
       <div className="relative h-48 w-full overflow-hidden">
-        <Image
+        {post.thumbnail? ( <Image
           src={post.thumbnail}
           alt={post.title}
           fill
           className="object-cover transition-transform duration-300 group-hover:scale-105"
-        />
+        />) : null}
+       
       </div>
+   </Link>
 
       {/* Content */}
       <div className="p-4 space-y-3">
@@ -66,6 +69,8 @@ export function BlogCard({ post, className }: BlogCardProps) {
           </span>
         )}
       </div>
-    </Link>
+      <Link href={`/blogs/${post.id}`}> <button className="btn bg-teal-600 p-2 rounded-2xl">Read More</button></Link>
+    
+    </div>
   )
 }
