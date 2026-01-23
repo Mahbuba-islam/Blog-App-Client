@@ -7,14 +7,23 @@ import {
   SidebarInset,
   SidebarProvider,
 } from "@/src/components/ui/sidebar"
+import { Roles } from "@/src/constants/roles"
+import { userService } from "@/src/services/user.service"
 
 // import data from "./dashboard/data.json"
 
-export default function DashboardLayout({children, admin, userdashboard} : {children:React.ReactNode, admin:React.ReactNode, userdashboard:React.ReactNode}) {
+export default async function DashboardLayout({ admin, userdashboard } : 
+  { admin:React.ReactNode, userdashboard:React.ReactNode}) {
   
-  const user = {
-    role:"admin"
-  }
+
+    const {data} = await userService.getSession()
+    console.log("dashboard layout", data);
+    const user = data.user
+    
+    console.log('role...',user.role);
+
+
+  
   
   return (
     <SidebarProvider 
@@ -30,9 +39,9 @@ export default function DashboardLayout({children, admin, userdashboard} : {chil
       <SidebarInset>
         <SiteHeader />
 
-        {user.role === "admin" ? admin : userdashboard}
+        {user.role === Roles.admin ? admin : userdashboard}
    
-      {children}
+    
         {/* <div className="flex flex-1 flex-col">
           <div className="@container/main flex flex-1 flex-col gap-2">
             <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">

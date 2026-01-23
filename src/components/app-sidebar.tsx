@@ -10,11 +10,17 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
+  SidebarRail,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarGroupContent,
 } from "@/src/components/ui/sidebar"
 
 import { adminRoutes } from "@/src/routes/adminRoutes"
 import { userRoutes } from "@/src/routes/userRoutes"
 import { Route } from "@/src/types/routes.type"
+import { Roles } from "../constants/roles"
+import Link from "next/link"
 
 
 
@@ -24,49 +30,51 @@ export function AppSidebar({
 }: {
   user: { role: string } & React.ComponentProps<typeof Sidebar>
 }) {
+
+    if (!user || !user.role) {
+    return null // or a skeleton loader
+  }
+
+  
+
   let routes:Route[] = []
 
+   console.log('route',routes);
+   console.log('user....', user.role);
+
   switch (user.role) {
-    case "admin":
+    case Roles.admin:
       routes = adminRoutes
       break
-    case "user":
+    case Roles.user:
       routes = userRoutes
       break
     default:
       routes = []
+      break;
   }
 
   return (
-    <Sidebar collapsible="offcanvas" {...props}>
-  <SidebarHeader>
-    <SidebarMenu>
-      {routes.map((group) => (
-        <SidebarMenuItem key={group.title}>
-          <div className="px-2 py-1 text-sm font-semibold opacity-70">
-            {group.title}
-          </div>
-
-          {group.items?.map((item) => (
-            <SidebarMenuButton asChild key={item.title}>
-              <a href={item.url} className="flex items-center gap-2 pl-4">
-               
-                <span>{item.title}</span>
-              </a>
-            </SidebarMenuButton>
-          ))}
-        </SidebarMenuItem>
-      ))}
-    </SidebarMenu>
-  </SidebarHeader>
-
-  <SidebarContent>
-   
-  </SidebarContent>
-
-  <SidebarFooter>
-  
-  </SidebarFooter>
-</Sidebar>
+    <Sidebar {...props}>
+      <SidebarContent>
+        {routes.map((item) => (
+          <SidebarGroup key={item.title}>
+            <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {item.items.map((item) => (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton asChild>
+                      <Link href={item.url}>{item.title}</Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        ))}
+      </SidebarContent>
+      <SidebarRail />
+    </Sidebar>
   )
 }
